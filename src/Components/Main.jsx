@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import Pokeinfo from "./Pokeinfo";
+import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 const Main = () => {
@@ -13,7 +14,7 @@ const Main = () => {
 
   const pokeFun = async () => {
     setLoading(true);
-    const res = await fetch.get(url);
+    const res = await axios.get(url);
     setNextUrl(res.data.next);
     setPrevUrl(res.data.previous);
     getPokemon(res.data.results);
@@ -21,7 +22,7 @@ const Main = () => {
   };
   const getPokemon = async (res) => {
     res.map(async (item) => {
-      const result = await fetch.get(item.url);
+      const result = await axios.get(item.url);
       setPokeData((state) => {
         state = [...state, result.data];
         state.sort((a, b) => (a.id > b.id ? 1 : -1));
